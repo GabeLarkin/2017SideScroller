@@ -4,17 +4,43 @@ using System.Collections;
 public class Player : MonoBehaviour {
 
 	public int health = 100;
-	new RigidBody2D rigidbody;
+    public float speed = 5;
+    public float jumpHeight = 5;
+    public float deadZone = -6;
 
-	// Use this for initialization
-	void Start () {
-		rigidbody = GetComponent<RigidBody2D> ();
+    new Rigidbody2D rigidbody;
+    GM _GM;
+
+    // Use this for initialization
+    void Start () {
+		rigidbody = GetComponent<Rigidbody2D> ();
+        _GM = FindObjectOfType<GM>();
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void fixedUpdate () {
+        // Apply Movement
 		float x = Input.GetAxisRaw ("Horizontal");
-		rigidbody.velocity = new Vector2 (x, 0);
+        Vector2 v = rigidbody.velocity;
+        v.x = x * speed;
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            v.y = jumpHeight;
+        }
+
+        rigidbody.velocity = v;
+
+        //Check for out
+        if (transform.position.y < deadZone)
+        {
+            Debug.Log("You are out");
+        }
+		
 	
 	}
+    public void GetOut()
+    {
+        _GM.SetLives(_GM.lives - 1);
+    }
 }
