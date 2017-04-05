@@ -7,12 +7,15 @@ public class Player : MonoBehaviour {
     public float speed = 5;
     public float jumpHeight = 5;
     public float deadZone = -6;
+    private int _Lives = 3;
+    private Vector3 startingPosition;
 
     new Rigidbody2D rigidbody;
     GM _GM;
 
     // Use this for initialization
     void Start () {
+        startingPosition = transform.position;
 		rigidbody = GetComponent<Rigidbody2D> ();
         _GM = FindObjectOfType<GM>();
 	}
@@ -34,7 +37,8 @@ public class Player : MonoBehaviour {
         //Check for out
         if (transform.position.y < deadZone)
         {
-            Debug.Log("You are out");
+            Debug.Log("Current Position " + transform.position.y + "is lower than " + deadZone);
+            GetOut();
         }
 		
 	
@@ -42,5 +46,7 @@ public class Player : MonoBehaviour {
     public void GetOut()
     {
         _GM.SetLives(_GM.lives - 1);
+        transform.position = startingPosition; 
+        Debug.Log("You're Out");
     }
 }
