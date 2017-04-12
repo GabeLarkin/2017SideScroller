@@ -45,7 +45,7 @@ public class Player : MonoBehaviour {
 	}
     public void GetOut()
     {
-        _GM.SetLives(_GM.lives - 1);
+        _GM.SetLives(_GM._Lives - 1);
         transform.position = startingPosition; 
         Debug.Log("You're Out");
     }

@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Enemy : MonoBehaviour {
+public class Enemy : MonoBehaviour
+{
 
     void OnCollisionEnter2D(Collision2D coll)
     {
@@ -11,3 +12,4 @@ public class Enemy : MonoBehaviour {
             player.GetOut();
         }
     }
+}

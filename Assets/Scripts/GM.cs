@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System;
 
 public class GM : MonoBehaviour {
-    private int _Lives = 3;
+   public int _Lives = 3;
    private int _Points;
 
     public Text livesvalue;
@@ -30,11 +31,16 @@ public class GM : MonoBehaviour {
     public void SetPoints(int newValue)
     {
         _Points = newValue;
-        scorevalue.text = _Points.ToString;
+        scorevalue.text = _Points.ToString();
     }
 
     public int GetPoints()
     {
         return _Points;
+    }
+
+    internal void SetLives(object p)
+    {
+        throw new NotImplementedException();
     }
 }
