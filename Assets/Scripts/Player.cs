@@ -7,6 +7,7 @@ public class Player : MonoBehaviour {
     public float speed = 5;
     public float jumpHeight = 5;
     public float deadZone = -6;
+    public bool canFly = false;
     private int _Lives = 3;
     private Vector3 startingPosition;
 
@@ -21,22 +22,20 @@ public class Player : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void fixedUpdate () {
+	void FixedUpdate () {
         // Apply Movement
 		float x = Input.GetAxisRaw ("Horizontal");
         Vector2 v = rigidbody.velocity;
         v.x = x * speed;
 
-        if (Input.GetButtonDown("Jump"))
-        {
+        if (Input.GetButtonDown("Jump") && (v.y == 0 || canFly)){
             v.y = jumpHeight;
         }
 
         rigidbody.velocity = v;
 
         //Check for out
-        if (transform.position.y < deadZone)
-        {
+        if (transform.position.y < deadZone){
             Debug.Log("Current Position " + transform.position.y + "is lower than " + deadZone);
             GetOut();
         }
