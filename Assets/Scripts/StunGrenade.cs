@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bomb : Throwable {
+public class StunGrenade : Throwable {
 
     public float blastRadius = 5;
     
@@ -65,12 +65,16 @@ public class Bomb : Throwable {
             if (Vector3.Distance(this.transform.position, e.transform.position) < 10)
             {
                 // Set that enemy to NON-active
-                e.gameObject.SetActive(false);
+                Stun(e);
             }
         }
             // Set bomb to not active so the bomb disappears and cannot be picked up again
             gameObject.SetActive(false);
             
       }
+    void Stun(Enemy e)
+    {
+        e.enabled = false;
+    }
  }
 
