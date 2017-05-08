@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class Player : MonoBehaviour {
 
@@ -8,6 +8,10 @@ public class Player : MonoBehaviour {
     public float jumpHeight = 5;
     public float deadZone = -6;
     public bool canFly = false;
+
+    private Weapon currentWeapon;
+    private List<Weapon> weapons = new List<Weapon>();
+
     private int _Lives = 3;
     private Vector3 startingPosition;
     private Animator anim;
@@ -73,5 +77,23 @@ public class Player : MonoBehaviour {
         _GM.SetLives(_GM._Lives - 1);
         transform.position = startingPosition; 
         Debug.Log("You're Out");
+    }
+
+    public void AddWeapon(Weapon w)
+    {
+        weapons.Add(w);
+        SetCurrentWeapon(w);
+    }
+
+    public void SetCurrentWeapon(Weapon w)
+    {
+        if (currentWeapon != null) {
+            currentWeapon.gameObject.SetActive(false);
+        }
+        currentWeapon = w;
+
+        if (currentWeapon != null) {
+            currentWeapon.gameObject.SetActive(true);
+        }
     }
 }
