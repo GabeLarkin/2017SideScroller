@@ -12,14 +12,13 @@ public class Player : MonoBehaviour {
     private Weapon currentWeapon;
     private List<Weapon> weapons = new List<Weapon>();
 
+    new Rigidbody2D rigidbody;
+    GM _GM;
     private int _Lives = 3;
     private Vector3 startingPosition;
     private Animator anim;
     private bool air;
     private SpriteRenderer sr;
-
-    new Rigidbody2D rigidbody;
-    GM _GM;
 
     // Use this for initialization
     void Start () {
@@ -31,17 +30,18 @@ public class Player : MonoBehaviour {
         air = true;
         sr = GetComponent<SpriteRenderer>();
 	}
-	
-	// Update is called once per frame
-	void FixedUpdate () {
+
+    // Update is called once per frame
+    void FixedUpdate() {
+
         // Apply Movement
-		float x = Input.GetAxisRaw ("Horizontal");
+        float x = Input.GetAxisRaw("Horizontal");
         Vector2 v = rigidbody.velocity;
         v.x = x * speed;
 
-        if(v.x) != 0){
+        if (v.x != 0) ; {
             anim.SetBool("running", true);
-        } else {
+        } else { 
             anim.SetBool("running", false);
         }
 
@@ -60,6 +60,7 @@ public class Player : MonoBehaviour {
             anim.SetBool("inAir", true);
         } else if (v.x < 0) {
             sr.flipX = true;
+             
         }
 
         rigidbody.velocity = v;
