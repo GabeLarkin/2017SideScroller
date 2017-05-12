@@ -39,9 +39,11 @@ public class Player : MonoBehaviour {
         Vector2 v = rigidbody.velocity;
         v.x = x * speed;
 
-        if (v.x != 0) ; {
+        if (v.x != 0)
+        {
             anim.SetBool("running", true);
-        } else { 
+        } 
+        else { 
             anim.SetBool("running", false);
         }
 
