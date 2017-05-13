@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour {
 
-    public Camera camera;
+    public new Camera camera;
 
     Vector3 selfieStick;
 
