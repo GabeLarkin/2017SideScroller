@@ -6,16 +6,6 @@ public class Throwable : Weapon {
 
     public bool isActive = false;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
     public override void Attack()
     {
         collider2D.enabled = true;

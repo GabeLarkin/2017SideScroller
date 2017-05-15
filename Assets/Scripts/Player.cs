@@ -9,7 +9,7 @@ public class Player : MonoBehaviour {
     public float jumpHeight = 7;
     public float deadZone = -3.5f;
     public bool canFly = false;
-    public bool changeSpeed = false;
+    public bool crippleJump = false;
 
     public Weapon currentWeapon;
     private List<Weapon> weapons = new List<Weapon>();
@@ -68,9 +68,19 @@ public class Player : MonoBehaviour {
             anim.SetBool("inAir", false);
         }
 
+        //Attack with a weapon if you have one
+        if (Input.GetButtonDown("Fire1") && currentWeapon != null)
+        {
+            currentWeapon.Attack();
+        }
+        if (Input.GetButtonDown("Fire2"))
+        {
+            int i = (weapons.IndexOf(currentWeapon) + 1) % weapons.Count;
+            SetCurrentWeapon(weapons[i]);
+        }
 
 
-        rigidbody.velocity = v;
+            rigidbody.velocity = v;
 
         //Check for out
         if (transform.position.y < deadZone) {
@@ -87,12 +97,6 @@ public class Player : MonoBehaviour {
         Debug.Log("You're Out");
     }
 
-    //Attack with a weapon if you have one
-    if(Input.GetButtonDown("Fire1") && currentWeapon != null){}
-
-    
-        
-    
 
 
     public void AddWeapon(Weapon w)
@@ -101,6 +105,7 @@ public class Player : MonoBehaviour {
         SetCurrentWeapon(w);
     }
 
+    
     public void SetCurrentWeapon(Weapon w)
     {
         if (currentWeapon != null) {
@@ -113,6 +118,17 @@ public class Player : MonoBehaviour {
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D coll)
+    {
+        air = false;
+        var weapon = coll.gameObject.GetComponent<Weapon>();
+        if(weapon != null)
+        {
+            weapon.GetPickedUp(this);
+        }
+    }
+
+    //Player moves along with moving platforms
     private void OnCollisionExit2D(Collision2D collision)
     {
         air = true;

@@ -5,14 +5,13 @@ using UnityEngine;
 public class Enemy2 : MonoBehaviour {
 
     Player player;
-    public bool changeSpeed = false;
-    public float speed = 5;
+    public bool crippleJump = false;
     public float lastforSeconds = 10;
     float timeStarted = 0;
 
 	// Use this for initialization
 	void Start () {
-        player.speed = 5;
+        player.jumpHeight = 7;
 	}
 
     private void OnCollisionEnter2D(Collision2D coll)
@@ -24,9 +23,8 @@ public class Enemy2 : MonoBehaviour {
         player = coll.gameObject.GetComponent<Player>();
         if(player != null)
         {
-            player.changeSpeed = true;
-            player.speed = 2;
-            Invoke("ResetSpeed", 5.0f);
+            player.crippleJump = true;
+            player.jumpHeight = 3;
             timeStarted = Time.time;
         }
         else
@@ -37,15 +35,12 @@ public class Enemy2 : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-		if(speed != 0 && speed + lastforSeconds < Time.time)
+        if (timeStarted != 0 && timeStarted + lastforSeconds == Time.time)
         {
             timeStarted = 0;
-            player.changeSpeed = false;
+            player.crippleJump = false;
         }
-	}
-    void ResetSpeed()
-    {
-        player.speed = 5;
     }
+    
 
 }
